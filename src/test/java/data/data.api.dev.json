@@ -1,0 +1,19 @@
+{
+  "verifyMovieCreated": {
+    "titanic": {
+      "name":"titanic",
+      "rating":"4.9",
+      "time":"2h35m"
+    },
+    "superman": {
+      "name":"superman",
+      "rating":"4.3",
+      "time":"1h44m"
+    },
+    "ironman": {
+      "name":"ironman",
+      "rating":"4.7",
+      "time":"2h15m"
+    }    
+  }
+}
