@@ -1,6 +1,6 @@
 package tests.api;
 
-import library.BaseLibrary;
+import library.TestBase;
 import core.APIMethods;
 import core.Config;
 import core.RestSession;
@@ -12,9 +12,9 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.Map;
 
-public class MovieCreate extends BaseLibrary {
+public class MovieCreate extends TestBase {
 
-    @Test(dataProvider = "getApiData",groups="createMovie")
+    @Test(dataProvider = "getAPIData",groups={"createMovie","api"})
     public void verifyMovieCreated(Map<String,String> data){
         try{
             //Create

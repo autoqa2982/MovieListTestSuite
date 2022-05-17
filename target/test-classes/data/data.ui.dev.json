@@ -1,0 +1,33 @@
+{
+  "testdata":
+  [
+    {"testname":"verifyMoviesCreated",
+     "iteration" : [
+        {
+          "setname":"Takken",
+          "setrating":"8.9",          
+          "settime":"1h35m",
+          "expname":"Takken",
+          "exprating":"8.9",
+          "exptime":"1h35m"
+        },
+        {
+          "setname":"Titanic",
+          "setrating":"7.9000",
+          "settime":"2h35m",
+          "expname":"Titanic",
+          "exprating":"7.9",
+          "exptime":"2h35m"
+        },
+        {
+          "setname":"Tremor",
+          "setrating":"7.5",
+          "settime":"",
+          "expname":"Tremor",
+          "exprating":"7.5",
+          "exptime":""
+        } 
+      ]
+    }
+  ]
+}

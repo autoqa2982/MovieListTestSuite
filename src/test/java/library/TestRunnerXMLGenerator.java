@@ -32,7 +32,7 @@ public class TestRunnerXMLGenerator implements IAlterSuiteListener {
 
         //Getting all Test Classes of Type TestBase
         Reflections reflections = new Reflections("tests");
-        Set<Class<? extends BaseLibrary>> classes = reflections.getSubTypesOf(BaseLibrary.class);
+        Set<Class<? extends TestBase>> classes = reflections.getSubTypesOf(TestBase.class);
 
         for(Class clazz : classes){
             listTestClasses.add(new XmlClass(clazz.getCanonicalName()));

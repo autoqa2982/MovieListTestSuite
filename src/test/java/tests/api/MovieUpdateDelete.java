@@ -4,7 +4,7 @@ import core.APIMethods;
 import core.Config;
 import core.RestSession;
 import io.restassured.response.Response;
-import library.BaseLibrary;
+import library.TestBase;
 import library.MovieUtils;
 
 import org.testng.Assert;
@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MovieUpdateDelete extends BaseLibrary {
+public class MovieUpdateDelete extends TestBase {
  
-    @Test(dependsOnGroups = {"createMovie"},priority=1)
+    @Test(dependsOnGroups = {"createMovie"},groups= {"api"},priority=1)
     public void verifyMovieUpdate(){
         try{
             RestSession session = new RestSession();
@@ -40,7 +40,7 @@ public class MovieUpdateDelete extends BaseLibrary {
         }
     }
 
-    @Test(dependsOnGroups = {"createMovie"},priority=2)
+    @Test(dependsOnGroups = {"createMovie"},groups= {"api"},priority=2)
     public void deleteMovie(){
         try{
         	RestSession session = new RestSession();

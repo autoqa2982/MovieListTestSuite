@@ -1,6 +1,7 @@
 package core;
 
 
+import io.netty.util.concurrent.Future;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -8,10 +9,14 @@ import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import org.asynchttpclient.Dsl;
+import org.asynchttpclient.ListenableFuture;
+
 
 public class RestSession {
 
@@ -47,21 +52,23 @@ public class RestSession {
         return sendSpec(apiMethod, reqBuilder);
     }
 
-    private Response sendSpec(APIMethod methodPath, RequestSpecBuilder builder) throws MalformedURLException {
+    private Response sendSpec(APIMethod methodPath, RequestSpecBuilder builder) throws MalformedURLException, Exception, ExecutionException {
+    	
         URL requestUrl = new URL(methodPath.getHostUrl() + "/" + methodPath.getRestMethodPath());
         Response response = null;
         builder.setBaseUri(methodPath.getHostUrl());
         builder.setBasePath(methodPath.getRestMethodPath());
         RequestSpecification requestSpecification = builder.build();
         requestSpecification.log().all(true);
-        ResponseSpecification spec = RestAssured.given().urlEncodingEnabled(false).spec(requestSpecification).response();
-
+        ResponseSpecification spec = RestAssured.given().spec(requestSpecification).response();
+        ListenableFuture<org.asynchttpclient.Response> respFuture = null;
         switch (methodPath.getRestHttpMethodType()) {
-            case GET:
+            case GET:            	
                 response = spec.when().get(requestUrl);
                 break;
             case POST:
-                response = spec.when().post(String.valueOf(requestUrl));
+            	respFuture = Dsl.asyncHttpClient().preparePost(requestUrl.toString()).execute(); 
+            	response = (Response) respFuture.get();
                 break;
             case PUT:
                 response = spec.when().put(requestUrl);
@@ -70,7 +77,8 @@ public class RestSession {
                 response = spec.when().patch(requestUrl);
                 break;
             case DELETE:
-                response = spec.when().delete(requestUrl);
+            	respFuture = Dsl.asyncHttpClient().prepareDelete(requestUrl.toString()).execute();            	               
+            	response = (Response) respFuture.get();
                 break;
             case HEAD:
                 response = spec.when().head(requestUrl);
