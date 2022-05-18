@@ -7,16 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import core.APIMethods;
 import core.Config;
 import core.DriverFactory;
 import core.JSONDataProvider;
 import core.RestSession;
+import io.restassured.response.Response;
 
 public class TestBase {
 
@@ -46,17 +49,37 @@ public class TestBase {
 	protected WebDriver driver() {
 		return driver;
 	}
-
+	
+	@BeforeClass(groups = {"ui"})
+	public void resetData() {
+		try{
+			ApiLibrary.deleteMovies();                   
+        }catch(Exception e){
+          e.printStackTrace();
+        }
+	}
+	
     @DataProvider
     public Object[][] getData(Method method){
        try{
            
     	   List<String> testGroups = new ArrayList<>();
     	   Object[][] finalData = null;
-    	   Test testClass = method.getAnnotation(Test.class);
-    	   for (int i = 0; i < testClass.groups().length; i++) {
-    		   testGroups.add(testClass.groups()[i]);               
-           }
+    	   
+    	   try {
+    		   Test testClass = method.getAnnotation(Test.class);
+        	   for (int i = 0; i < testClass.groups().length; i++) {
+        		   testGroups.add(testClass.groups()[i]);               
+               }  
+    	   }catch(Exception e) {}
+    	   
+    	   try {
+    		   BeforeClass beforeClass = method.getAnnotation(BeforeClass.class);
+        	   for (int i = 0; i < beforeClass.groups().length; i++) {
+        		   testGroups.add(beforeClass.groups()[i]);               
+               }  
+    	   }catch(Exception e) {}
+    	   
            JSONDataProvider data = new JSONDataProvider();
            
            if(testGroups.contains("api")) {

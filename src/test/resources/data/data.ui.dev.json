@@ -28,6 +28,60 @@
           "exptime":""
         } 
       ]
+    },
+    {"testname":"paginationSetupData",
+     "iteration" : [
+        {
+          "name":"Takken",
+          "rating":"8.9",          
+          "time":"1h35m"
+        },
+        {
+          "name":"Titanic",
+          "rating":"7.9000",
+          "time":"2h35m"
+        },
+        {
+          "name":"Tremor",
+          "rating":"7.5",
+          "time":"1h30m"
+        },
+        {
+          "name":"Romeo and Juliet",
+          "rating":"9.1",
+          "time":"2h45m"
+        },
+        {
+          "name":"Hanna",
+          "rating":"6.7",
+          "time":"2h05m"
+        },
+        {
+          "name":"No time to die",
+          "rating":"7.7",
+          "time":"2h15m"
+        },
+        {
+          "name":"RAMBO 1",
+          "rating":"7.9",
+          "time":"2h30m"
+        },
+        {
+          "name":"Desparado",
+          "rating":"8.2",
+          "time":"2h35m"
+        },
+        {
+          "name":"Monday",
+          "rating":"9.0",
+          "time":"2h10m"
+        },
+        {
+          "name":"Blade runner",
+          "rating":"8.1",
+          "time":"1h30m"
+        }      
+      ]
     }
   ]
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class MovieCreate extends TestBase {
 
-    @Test(dataProvider = "getAPIData",groups={"createMovie","api"})
+    @Test(dataProvider = "getData",groups={"createMovie","api"})
     public void verifyMovieCreated(Map<String,String> data){
         try{
             //Create

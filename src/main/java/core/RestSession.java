@@ -13,9 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
-import org.asynchttpclient.Dsl;
-import org.asynchttpclient.ListenableFuture;
 
 
 public class RestSession {
@@ -61,14 +60,13 @@ public class RestSession {
         RequestSpecification requestSpecification = builder.build();
         requestSpecification.log().all(true);
         ResponseSpecification spec = RestAssured.given().spec(requestSpecification).response();
-        ListenableFuture<org.asynchttpclient.Response> respFuture = null;
+        
         switch (methodPath.getRestHttpMethodType()) {
             case GET:            	
                 response = spec.when().get(requestUrl);
                 break;
             case POST:
-            	respFuture = Dsl.asyncHttpClient().preparePost(requestUrl.toString()).execute(); 
-            	response = (Response) respFuture.get();
+            	response = spec.when().post(requestUrl);
                 break;
             case PUT:
                 response = spec.when().put(requestUrl);
@@ -76,10 +74,8 @@ public class RestSession {
             case PATCH:
                 response = spec.when().patch(requestUrl);
                 break;
-            case DELETE:
-            	respFuture = Dsl.asyncHttpClient().prepareDelete(requestUrl.toString()).execute();            	               
-            	response = (Response) respFuture.get();
-                break;
+            case DELETE:                	
+            	response = spec.when().delete(requestUrl);            	
             case HEAD:
                 response = spec.when().head(requestUrl);
                 break;

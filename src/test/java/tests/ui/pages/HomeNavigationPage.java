@@ -20,7 +20,7 @@ public class HomeNavigationPage extends BasePage{
 		super(driver);		
 	}
 
-	public void lanuchApp() {
+	public void lauchApp() {
 		driver.get(Config.getProperty("appurl"));
 	}
 	
@@ -33,7 +33,6 @@ public class HomeNavigationPage extends BasePage{
 		linkCreateMovie.click();
 		return new CreateMoviePage(driver);
 	}
-	
-	
-	
+
+
 }

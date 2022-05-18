@@ -19,6 +19,9 @@ public class CreateMoviePage extends BasePage{
 	@FindBy(xpath=".//button[text()='Add Movie']")
 	private WebElement btnAddMovie;
 	
+	@FindBy(xpath=".//button[text()='Update Movie']")
+	private WebElement btnUpdateMovie;
+	
 	@FindBy(xpath=".//a[text()='Cancel']")
 	private WebElement btnCancel;
 	
@@ -27,8 +30,11 @@ public class CreateMoviePage extends BasePage{
 	}
 	
 	public void setCreateMovieDetails(String name,String rating,String time) {
+		textMovieName.clear();
 		textMovieName.sendKeys(name);
+		textRating.clear();
 		textRating.sendKeys(rating);
+		textTime.clear();
 		textTime.sendKeys(time);		
 	}
 	
@@ -43,9 +49,19 @@ public class CreateMoviePage extends BasePage{
 		return null;
 	}
 	
+	public String updateMovie() {
+		btnUpdateMovie.click();
+		if(waitForAlert(5)) {
+			Alert alert = driver.switchTo().alert();
+			String movieUpdate = alert.getText();
+			alert.accept();
+			return movieUpdate;
+		}
+		return null;
+	}
+	
 	public void cancelAddMovie() {
-		btnCancel.click();
-		
+		btnCancel.click();		
 	}
 	
 	
