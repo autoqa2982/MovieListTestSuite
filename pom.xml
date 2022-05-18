@@ -56,8 +56,8 @@
 				<version>2.19.1</version>
 				<configuration>
 					<environmentVariables>
-						<!-- <env>${env}</env> -->
-						<!-- <browser>${browser}</browser> -->
+						<env>${env}</env>
+						<browser>${browser}</browser>
 					</environmentVariables>
 					<suiteXmlFiles>
 						<suiteXmlFile>TestSuiteRunner.xml</suiteXmlFile>
